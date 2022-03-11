@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { FiMoreHorizontal, FiBell } from 'react-icons/fi';
@@ -20,7 +21,7 @@ import SidebarOption from './SidebarOption';
 const styles = {
   wrapper: `flex-[0.7] px-8 flex flex-col`,
   twitterIconContainer: `text-3xl m-4`,
-  twitterButton: `bg-[#1d9bf0] hover:bg-[#1a8ae2] flex items-center justify-center font-bold rounded-3xl h-[50px] mt-[20px] cursor-pointer`,
+  tweetButton: `bg-[#1d9bf0] hover:bg-[#1a8ae2] flex items-center justify-center font-bold rounded-3xl h-[50px] mt-[20px] cursor-pointer`,
   navContainer: `flex-1`,
   profileButton: `flex items-center mb-6 cursor-pointer hover:bg-[#333c45] rounded`,
   profileLeft: `flex items-center justify-center mr-4`,
@@ -34,6 +35,7 @@ const styles = {
 
 const Sidebar = ({ initialSelectedIcon = 'Home' }) => {
   const [selected, setSelected] = useState(initialSelectedIcon);
+  const router = useRouter();
 
   return (
     <div className={styles.wrapper}>
@@ -86,6 +88,14 @@ const Sidebar = ({ initialSelectedIcon = 'Home' }) => {
           redirect={'/profile'}
         />
         <SidebarOption text='More' Icon={CgMoreO} setSelected={setSelected} />
+        <div
+          onClick={() =>
+            router.push(`${router.pathname}/?mint=${currentAccount}`)
+          }
+          className={styles.tweetButton}
+        >
+          Mint
+        </div>
       </div>
       <div className={styles.profileButton}>
         <div className={styles.profileLeft}></div>
